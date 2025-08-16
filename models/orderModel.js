@@ -24,7 +24,6 @@ const Orden = sequelize.define('Orden', {
   }
 }, {
   tableName: 'Ordenes',
-  schema: 'farma',
   timestamps: true
 });
 
