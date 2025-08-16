@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= nombrePagina %></title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+  <header class="bg-white shadow mb-6">
+    <%- include('../partials/navbarPublic') %>    
+  </header>
+
+  <div class="container mx-auto mt-8 px-4">
+    <h1 class="text-2xl font-bold mb-4"><%= nombrePagina %></h1>
+
+    <% if (carrito.length === 0) { %>
+      <p>No tienes productos en tu carrito.</p>
+    <% } else { %>
+      <div class="bg-white shadow-md rounded-lg p-4">
+
+        <% carrito.forEach(item => { %>
+          <% const producto = item.Producto; %>
+          <% if (producto) { %>
+            <div class="flex justify-between items-center border-b py-2">
+              
+              <!-- Info del producto -->
+              <div>
+                <span class="block font-medium"><%= producto.nombre %> (x<%= item.cantidad %>)</span>
+                <span class="text-gray-500">Subtotal: $<%= (producto.precio * item.cantidad).toFixed(2) %></span>
+              </div>
+
+              <!-- Botones -->
+              <div class="flex items-center gap-3">
+                <!-- Editar -->
+                <a 
+                  href="/carrito/editar/<%= item.id %>" 
+                  class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm"
+                >
+                  Editar
+                </a>
+
+                <!-- Eliminar -->
+                <form action="/Public/eliminarCarrito/<%= item.id %>" method="POST" onsubmit="return confirm('¿Eliminar este producto del carrito?')">
+                  <button 
+                    type="submit" 
+                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
+                  >
+                    Eliminar
+                  </button>
+                </form>
+              </div>
+            </div>
+          <% } %>
+        <% }); %>
+
+        <!-- Total -->
+        <div class="text-right mt-4 font-bold text-lg">
+          <p>Total: $<%= totalFormateado %></p>
+          <button class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onclick="abrirModalCompra()">
+            Finalizar Compra
+          </button>
+        </div>
+
+
+      </div>
+    <% } %>
+  </div>
+
+  <footer class="mt-10 py-6 text-center text-gray-500">
+    &copy; <%= new Date().getFullYear() %> Tu Farmacia Online
+  </footer>
+
+
+<!-- Modal -->
+<!-- Modal -->
+<div id="modalCompra" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+    <h2 class="text-xl font-bold mb-4">Confirmar Compra</h2>
+    <p>¿Estás seguro de finalizar tu compra?</p>
+
+    <form action="/Public/finalizarCompra" method="POST">
+      <div class="mt-6 flex justify-end gap-4">
+        <button 
+          type="button" 
+          onclick="cerrarModalCompra()"
+          class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+        >
+          Cancelar
+        </button>
+        <button 
+          type="submit" 
+          class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        >
+          Confirmar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function abrirModalCompra() {
+  document.getElementById('modalCompra').classList.remove('hidden');
+  document.getElementById('modalCompra').classList.add('flex');
+}
+
+function cerrarModalCompra() {
+  document.getElementById('modalCompra').classList.remove('flex');
+  document.getElementById('modalCompra').classList.add('hidden');
+}
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

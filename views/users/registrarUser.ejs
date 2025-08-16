@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <title>Registro de Administrador</title>
+</head>
+<body class="bg-gray-100">
+    <header>
+       
+    </header>
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <h2 class="text-2xl font-bold text-center mb-6">Registro de Usuarios </h2>
+            <form action="/farma/user/register" method="POST">
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700 font-bold mb-2">Usuario</label>
+                    <input type="text" name="username" id="username" class="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 font-bold mb-2">Correo Electrónico</label>
+                    <input type="email" name="email" id="email" class="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-700 font-bold mb-2">Contraseña</label>
+                    <input type="password" name="password" id="password" class="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                </div>
+                <div class="mb-4">
+                    <label for="confirmPassword" class="block text-gray-700 font-bold mb-2">Confirmar Contraseña</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-lg w-full hover:bg-blue-700">Registrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

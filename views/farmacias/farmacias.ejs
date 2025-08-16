@@ -1,0 +1,117 @@
+<!-- views/portalInicio.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Principal</title>
+    <link href="/css/estilo.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header con barra de navegación -->
+    <header>
+        <%- include('../partials/navbar') %> <!-- Incluye la barra de navegación -->
+    </header>
+
+
+    <main class="container mx-auto mt-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+      <h1 class="text-3xl font-bold text-gray-800"><%= nombrePagina %></h1>
+
+      <!-- Botón Nueva Farmacia -->
+      <a href="/farma/nuevaFarmacia" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow transition duration-200">
+        + Nueva Farmacia
+      </a>
+    </div>
+
+    <!-- Barra de Búsqueda -->
+    <form action="/farma/buscar" method="GET" class="mb-6">
+      <div class="relative w-full md:w-1/2">
+        <input
+          type="text"
+          name="termino"
+          placeholder="Buscar farmacia por nombre o dirección..."
+          class="w-full pl-4 pr-12 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button type="submit" class="absolute right-2 top-1.5 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg">
+          🔍
+        </button>
+      </div>
+    </form>
+
+    <% if (farmacias.length === 0) { %>
+      <p class="text-gray-600">No hay farmacias registradas.</p>
+    <% } else { %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+
+        <% farmacias.forEach(f => { %>
+  <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition duration-300 relative">
+    
+    <h2 class="text-xl font-semibold text-gray-800 mb-2"><%= f.nombre %></h2>
+    <p class="text-gray-600 mb-2"><%= f.direccion %></p>
+    <p class="text-sm text-gray-500 mb-4"><%= f.telefono %> • <%= f.email %></p>
+
+    <div class="flex flex-wrap gap-2 justify-between items-center">
+      <a href="/farma/productos/<%= f.id %>" class="bg-green-500 text-white px-4 py-1.5 rounded hover:bg-green-600 text-sm shadow">
+        📦 Ver productos
+      </a>
+
+      <div class="flex gap-2">
+        <a href="/farma/farmacia/<%= f.id %>" class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-1.5 rounded text-sm shadow">
+          ✏️ Editar
+        </a>
+
+        <button class="bg-red-500 text-white px-4 py-1.5 rounded hover:bg-red-600 text-sm shadow" onclick="mostrarModal('<%= f.id %>')">
+          🗑️ Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+<% }) %>
+
+
+
+      </div>
+    <% } %>
+  </main>
+
+
+<!-- modal para confirmar eliminacion  -->
+<!-- Modal de confirmación -->
+<div id="modalEliminar" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg p-6 shadow-xl w-96 text-center">
+    <h2 class="text-lg font-semibold text-gray-800 mb-4">¿Deseas eliminar esta farmacia?</h2>
+    <form id="formEliminar" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <div class="flex justify-center gap-4 mt-4">
+        <button type="button" onclick="cerrarModal()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+          Cancelar
+        </button>
+        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+          Eliminar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<script>
+  function mostrarModal(id) {
+    const form = document.getElementById('formEliminar');
+    form.action = `/farma/eliminar/${id}`;
+    document.getElementById('modalEliminar').classList.remove('hidden');
+  }
+
+  function cerrarModal() {
+    document.getElementById('modalEliminar').classList.add('hidden');
+  }
+</script>
+
+
+</body>
+</html>

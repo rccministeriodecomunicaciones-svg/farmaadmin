@@ -1,0 +1,57 @@
+<!-- views/portalInicio.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Principal</title>
+    <link href="/css/estilo.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header con barra de navegación -->
+    <header>
+        <%- include('../partials/navbar') %> <!-- Incluye la barra de navegación -->
+    </header>
+
+
+<div class="container mx-auto mt-10 max-w-xl bg-white p-6 rounded-xl shadow-md">
+  <h2 class="text-2xl font-semibold mb-6">Editar Producto</h2>
+
+  <form action="/farma/updateProducto/<%= producto.id %>" method="POST" class="space-y-4">
+    <div>
+      <label class="block text-sm font-medium">Nombre</label>
+      <input type="text" name="nombre" value="<%= producto.nombre %>" required class="w-full border p-2 rounded" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Descripción</label>
+      <textarea name="descripcion" required class="w-full border p-2 rounded"><%= producto.descripcion %></textarea>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Precio</label>
+      <input type="number" step="0.01" name="precio" value="<%= producto.precio %>" required class="w-full border p-2 rounded" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Farmacia</label>
+      <select name="farmaciaId" class="w-full border p-2 rounded" required>
+        <% farmacias.forEach(f => { %>
+          <option value="<%= f.id %>" <%= f.id === producto.FarmaciaId ? 'selected' : '' %>><%= f.nombre %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="text-right">
+      <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Guardar cambios</button>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>
+
+
+</body>
+</html>

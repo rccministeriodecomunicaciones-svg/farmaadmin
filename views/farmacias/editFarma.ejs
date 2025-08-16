@@ -1,0 +1,50 @@
+<!-- views/portalInicio.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Principal</title>
+    <link href="/css/estilo.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <header>
+    <%- include('../partials/navbar') %>
+</header>
+
+<div class="min-h-screen bg-gradient-to-br from-blue-100 to-white flex items-center justify-center p-6">
+  <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-xl border border-blue-200">
+    <h2 class="text-2xl font-bold mb-6 text-blue-700 text-center">Editar Farmacia</h2>
+
+    <form action="/farma/farmacia/<%= farmacia.id %>?_method=PUT" method="POST" class="space-y-5">
+      <div>
+        <label class="block text-gray-700 font-medium mb-1" for="nombre">Nombre de la Farmacia</label>
+        <input type="text" name="nombre" id="nombre" value="<%= farmacia.nombre %>" required
+          class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1" for="direccion">Dirección</label>
+        <input type="text" name="direccion" id="direccion" value="<%= farmacia.direccion %>" required
+          class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1" for="telefono">Teléfono</label>
+        <input type="text" name="telefono" id="telefono" value="<%= farmacia.telefono %>" required
+          class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <div class="flex justify-between mt-6">
+        <a href="/farma/farmacias" class="text-blue-600 hover:underline">← Cancelar</a>
+        <button type="submit"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl shadow-md transition duration-300">
+          Guardar Cambios
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

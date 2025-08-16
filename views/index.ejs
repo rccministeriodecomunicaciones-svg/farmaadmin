@@ -1,0 +1,48 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/estilo.css">
+    <title>Página Principal - Administración de Farmacia</title>
+   
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow">
+        <%- include('partials/navbar') %>
+    </header>
+
+    <main class="container mx-auto mt-10">
+        <section class="bg-white p-8 rounded-lg shadow-md mb-8">
+            <h2 class="text-3xl font-bold text-center mb-6">Bienvenido a la Administración de Farmacia</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                En nuestra plataforma, ofrecemos una solución integral para la gestión y administración de farmacias. Nuestro objetivo es proporcionar herramientas eficaces que permitan la organización, control de inventario, y seguimiento de ventas y compras, todo en un entorno fácil de usar y accesible desde cualquier dispositivo.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Con nuestro sistema, puedes mantener un registro detallado de los medicamentos, gestionar las recetas de los clientes, y asegurar el cumplimiento de las normativas vigentes en el sector farmacéutico. Nuestra interfaz amigable te permitirá ahorrar tiempo y optimizar los procesos de tu farmacia, garantizando un servicio de calidad para tus clientes.
+            </p>
+        </section>
+
+        <section class="bg-white p-8 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold mb-4">Características Principales</h3>
+            <ul class="list-disc list-inside text-gray-700">
+                <li>Gestión de inventario de medicamentos</li>
+                <li>Registro y control de recetas médicas</li>
+                <li>Monitoreo de ventas y compras</li>
+                <li>Generación de informes y estadísticas</li>
+                <li>Cumplimiento con normativas farmacéuticas</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4 mt-10">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Administración de Farmacia. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+

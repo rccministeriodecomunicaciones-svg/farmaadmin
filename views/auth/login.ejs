@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión | FarmaAdmin</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gradient-to-br from-indigo-100 to-blue-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+    <div class="mb-6 text-center">
+      <h1 class="text-3xl font-bold text-indigo-600">Farma Admin</h1>
+      <p class="text-gray-500 mt-1">Inicia sesión en tu cuenta</p>
+    </div>
+
+    <% if (typeof error !== 'undefined') { %>
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4">
+        <%= error %>
+      </div>
+    <% } %>
+
+    <form action="/farma/login" method="POST" class="space-y-4">
+      <div>
+        <label for="email" class="block text-gray-700">Correo electrónico</label>
+        <input type="email" name="email" id="email" required
+               class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+      </div>
+      <div>
+        <label for="password" class="block text-gray-700">Contraseña</label>
+        <input type="password" name="password" id="password" required
+               class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+      </div>
+      <button type="submit"
+              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-md transition duration-300">
+        Iniciar Sesión
+      </button>
+    </form>
+
+    <div class="mt-4 text-sm text-center text-gray-600 space-y-1">
+      <p>
+        ¿No tienes cuenta?
+        <a href="/farma/register" class="text-indigo-600 hover:underline font-medium">Crear una cuenta</a>
+      </p>
+      <p>
+        ¿Olvidaste tu contraseña?
+        <a href="/recuperar" class="text-indigo-600 hover:underline font-medium">Recupérala aquí</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+

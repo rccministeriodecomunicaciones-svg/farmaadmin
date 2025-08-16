@@ -1,0 +1,47 @@
+<!-- views/portalInicio.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Principal</title>
+    <link href="/css/estilo.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <header>
+    <%- include('../partials/navbar') %>
+</header>
+
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg mt-10">
+  <h2 class="text-xl font-semibold mb-4 text-center text-blue-700">Crear Nueva Farmacia</h2>
+
+  <form action="/farma/crearFarmacia" method="POST" class="space-y-4">
+    <div>
+      <label class="block text-gray-700">Nombre</label>
+      <input type="text" name="nombre" required class="w-full border rounded p-2">
+    </div>
+    <div>
+      <label class="block text-gray-700">Dirección</label>
+      <input type="text" name="direccion" required class="w-full border rounded p-2">
+    </div>
+    <div>
+      <label class="block text-gray-700">Teléfono</label>
+      <input type="text" name="telefono" required class="w-full border rounded p-2">
+    </div>
+    <div>
+      <label class="block text-gray-700">Email</label>
+      <input type="email" name="email" class="w-full border rounded p-2">
+    </div>
+    <div>
+      <label class="block text-gray-700">Representante</label>
+      <input type="text" name="representante" required class="w-full border rounded p-2">
+    </div>
+
+    <button type="submit" class="w-full bg-blue-600 text-white rounded p-2 hover:bg-blue-700">
+      Guardar Farmacia
+    </button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

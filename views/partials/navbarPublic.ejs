@@ -1,0 +1,86 @@
+<nav class="bg-gradient-to-r from-blue-600 to-green-500 shadow-xl p-4">
+  <div class="container mx-auto flex justify-between items-center">
+
+    <!-- Logo -->
+    <a href="/Public/tienda" class="text-white font-bold text-2xl flex items-center gap-2 hover:text-gray-200 transition-colors duration-300">
+      <svg class="w-8 h-8 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3V3z"></path>
+      </svg>
+      TiendaApp
+    </a>
+
+    <!-- Menú principal (desktop) -->
+    <ul class="hidden md:flex space-x-6 items-center">
+      <li>
+        <a href="/Public/tienda" class="relative text-white flex items-center gap-1 px-3 py-2 rounded hover:bg-white/20 transition-all duration-300 group">
+          <svg class="w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3V3z"></path>
+          </svg>
+          Inicio
+          <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Usuario / Login -->
+    <ul class="flex space-x-4 items-center">
+      <% if (user) { %>
+        <li class="text-white font-medium flex items-center gap-1 relative group">
+          <svg class="w-5 h-5 animate-pulse text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1 1 18.879 6.196 9 9 0 0 1 5.121 17.804z"></path>
+          </svg>
+          Bienvenido, <%= user.username %>
+        </li>
+        <li>
+          <a href="/farma/logout" class="text-white px-3 py-2 rounded hover:bg-white/20 transition-all duration-300 flex items-center gap-1 group relative">
+            <svg class="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"></path>
+            </svg>
+            Cerrar Sesión
+            <span class="absolute left-0 -bottom-1 w-0.5 h-0.5 bg-white transition-all duration-300 group-hover:h-5"></span>
+          </a>
+        </li>
+      <% } else { %>
+        <li>
+          <a href="/farma/login" class="text-white px-3 py-2 rounded hover:bg-white/20 transition-all duration-300 flex items-center gap-1 group relative">
+            <svg class="w-5 h-5 group-hover:scale-125 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+            Iniciar Sesión
+            <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+        <li>
+          <a href="/farma/register" class="text-white px-3 py-2 rounded hover:bg-white/20 transition-all duration-300 flex items-center gap-1 group relative">
+            <svg class="w-5 h-5 group-hover:scale-125 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Registrarse
+            <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+      <% } %>
+    </ul>
+
+    <!-- Botón móvil -->
+    <button id="menu-btn" class="md:hidden text-white focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+      </svg>
+    </button>
+
+  </div>
+
+  <!-- Menú móvil -->
+  <ul id="mobile-menu" class="hidden flex-col space-y-2 mt-4 px-4 md:hidden">
+    <li><a href="/Public/tienda" class="text-white block px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">Inicio</a></li>
+  </ul>
+</nav>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+  });
+</script>

@@ -1,0 +1,75 @@
+<!-- views/portalInicio.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Principal</title>
+    <link href="/css/estilo.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header con barra de navegación -->
+    <header>
+        <%- include('../partials/navbar') %> <!-- Incluye la barra de navegación -->
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="container mx-auto mt-8">
+        <section class="bg-white p-8 rounded-lg shadow-md">
+            <h1 class="text-3xl font-bold mb-6 text-center text-gray-800"> <%- nombrePagina %> </h1>
+            <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                Esta es la página principal de tu aplicación web. Aquí puedes gestionar diferentes aspectos de la administración de la farmacia.
+            </p>
+            <p class="text-gray-700 text-lg leading-relaxed">
+                Utiliza la barra de navegación para acceder a las diferentes secciones como perfil, configuración, y más.
+            </p>
+        </section>
+        
+        <!-- Opciones principales -->
+        <section class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-blue-500 text-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4">Farmacias</h2>
+                <p>Administra las Farmacias asignadas</p>
+                <a href="/farma/farmacias" class="mt-4 inline-block bg-white text-blue-500 px-4 py-2 rounded">Ir a Farmacias</a>
+            </div>
+            <div class="bg-green-500 text-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4">Registro de Recetas</h2>
+                <p>Gestiona y registra las recetas médicas de tus clientes.</p>
+                <a href="/recetas" class="mt-4 inline-block bg-white text-green-500 px-4 py-2 rounded">Ir a Recetas</a>
+            </div>
+            <div class="bg-red-500 text-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4">Configuración</h2>
+                <p>Personaliza y configura las opciones de tu aplicación.</p>
+                <a href="/configuracion" class="mt-4 inline-block bg-white text-red-500 px-4 py-2 rounded">Ir a Configuración</a>
+            </div>
+        </section>
+        <section class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-red-500 text-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4">Gestion de usuarios</h2>
+                <p>Controla y administra el inventario de medicamentos de la farmacia.</p>
+                <a href="/inventario" class="mt-4 inline-block bg-white text-blue-500 px-4 py-2 rounded">Ir a Inventario</a>
+            </div>
+            <div class="bg-blue-500 text-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4">Ventas de Medicamentos </h2>
+                <p>Gestiona y registra las recetas médicas de tus clientes.</p>
+                <a href="/recetas" class="mt-4 inline-block bg-white text-green-500 px-4 py-2 rounded">Ir a Recetas</a>
+            </div>
+            <div class="bg-green-500 text-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4">Control de Registros </h2>
+                <p>Personaliza y configura las opciones de tu aplicación.</p>
+                <a href="/configuracion" class="mt-4 inline-block bg-white text-red-500 px-4 py-2 rounded">Ir a Configuración</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4 mt-10">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Administración de Farmacia. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

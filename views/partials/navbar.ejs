@@ -1,0 +1,137 @@
+<nav class="bg-gradient-to-r from-blue-800 to-indigo-700 shadow-lg p-4">
+  <div class="container mx-auto flex justify-between items-center">
+
+    <!-- Logo -->
+    <a href="/farma/admin" class="text-white font-bold text-2xl flex items-center gap-2 hover:text-gray-200 transition-colors duration-300">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.333-1.333-4 0-4 3s2.667 3 4 3 4-1.333 4-3-2.667-3-4-3z"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7"></path>
+      </svg>
+      FarmaApp
+    </a>
+
+    <!-- Menú principal (desktop) -->
+    <ul class="hidden md:flex space-x-4 items-center">
+      <li>
+        <a href="/farma/admin" class="text-white flex items-center gap-1 px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6"></path>
+          </svg>
+          Inicio
+        </a>
+      </li>
+      <li>
+        <a href="/farma/farmacias" class="text-white flex items-center gap-1 px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3h8v4M5 21h14v-6H5v6z"></path>
+          </svg>
+          Farmacias
+        </a>
+      </li>
+      <li>
+        <a href="/farma/productos" class="text-white flex items-center gap-1 px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"></path>
+          </svg>
+          Productos
+        </a>
+      </li>
+      <li>
+        <a href="/Public/tienda" class="text-white flex items-center gap-1 px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6M17 13l1.2 6M6 21h12"></path>
+          </svg>
+          Compra
+        </a>
+      </li>
+      <li>
+        <a href="/Public/ordenes" class="text-white flex items-center gap-1 px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h13M9 11V5h13"></path>
+          </svg>
+          Ordenes
+        </a>
+      </li>
+      <li>
+        <a href="/usuarios" class="text-white flex items-center gap-1 px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1 1 18.879 6.196 9 9 0 0 1 5.121 17.804z"></path>
+          </svg>
+          Usuarios
+        </a>
+      </li>
+      <li>
+        <a href="/api/configuracion" class="text-white flex items-center gap-1 px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"></path>
+          </svg>
+          Configuración
+        </a>
+      </li>
+    </ul>
+
+    <!-- Usuario / Login -->
+    <ul class="flex space-x-4 items-center">
+      <% if (user) { %>
+        <li class="text-white font-medium flex items-center gap-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1 1 18.879 6.196 9 9 0 0 1 5.121 17.804z"></path>
+          </svg>
+          Bienvenido, <%= user.username %>
+        </li>
+        <li>
+          <a href="/farma/logout" class="text-white px-3 py-2 rounded hover:bg-white/20 transition-all duration-300 flex items-center gap-1">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"></path>
+            </svg>
+            Cerrar Sesión
+          </a>
+        </li>
+      <% } else { %>
+        <li>
+          <a href="/farma/login" class="text-white px-3 py-2 rounded hover:bg-white/20 transition-all duration-300 flex items-center gap-1">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+            Iniciar Sesión
+          </a>
+        </li>
+        <li>
+          <a href="/farma/registro" class="text-white px-3 py-2 rounded hover:bg-white/20 transition-all duration-300 flex items-center gap-1">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Registrarse
+          </a>
+        </li>
+      <% } %>
+    </ul>
+
+    <!-- Botón móvil -->
+    <button id="menu-btn" class="md:hidden text-white focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+      </svg>
+    </button>
+
+  </div>
+
+  <!-- Menú móvil -->
+  <ul id="mobile-menu" class="hidden flex-col space-y-2 mt-4 px-4 md:hidden">
+    <li><a href="/farma/admin" class="text-white block px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">Inicio</a></li>
+    <li><a href="/farma/farmacias" class="text-white block px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">Farmacias</a></li>
+    <li><a href="/farma/productos" class="text-white block px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">Productos</a></li>
+    <li><a href="/Public/tienda" class="text-white block px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">Compra</a></li>
+    <li><a href="/Public/ordenes" class="text-white block px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">Ordenes</a></li>
+    <li><a href="/usuarios" class="text-white block px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">Usuarios</a></li>
+    <li><a href="/api/configuracion" class="text-white block px-3 py-2 rounded hover:bg-white/20 transition-all duration-300">Configuración</a></li>
+  </ul>
+</nav>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+  });
+</script>

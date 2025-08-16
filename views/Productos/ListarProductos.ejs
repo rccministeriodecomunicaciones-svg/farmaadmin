@@ -1,0 +1,187 @@
+<!-- views/portalInicio.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= nombrePagina %></title>
+  <link href="/css/estilo.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-blue-100 min-h-screen">
+
+  <header>
+    <%- include('../partials/navbar') %>
+  </header>
+
+
+
+
+  <div class="max-w-6xl mx-auto px-4 py-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">
+      Productos de <%= farmacia.nombre %>
+    </h1>
+
+    <div class="flex justify-end mb-4">
+      <a href="/farma/nuevoProducto/<%= farmacia.id %>" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        + Nuevo Producto
+      </a>
+    </div>
+
+    <% if (productos && productos.length > 0) { %>
+    <div class="overflow-x-auto shadow-lg rounded-lg border border-gray-200">
+      <table class="min-w-full bg-white">
+        <thead class="bg-gradient-to-r from-blue-50 to-blue-100 border-b border-gray-300">
+          <tr>
+            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700">Nombre</th>
+            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700">Descripción</th>
+            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700">Precio</th>
+            <th class="py-3 px-4 text-center text-sm font-semibold text-gray-700">Stock</th>
+            <th class="py-3 px-4 text-center text-sm font-semibold text-gray-700">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+  <% if (productos && productos.length) { %>
+    <% productos.forEach((producto) => { %>
+      <tr class="hover:bg-gray-50">
+        <td class="py-2 px-4 border-b"><%= producto.nombre %></td>
+        <td class="py-2 px-4 border-b"><%= producto.descripcion %></td>
+        <td class="py-2 px-4 border-b">$<%= Number(producto.precio).toFixed(2) %></td>
+        <td class="py-2 px-4 border-b text-center">
+          <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full
+                       <%= producto.stock <= 0 ? 'bg-red-100 text-red-700' :
+                           producto.stock < 10 ? 'bg-yellow-100 text-yellow-700' :
+                           'bg-green-100 text-green-700' %>">
+            <%= producto.stock %> uds
+          </span>
+        </td>
+        <td class="py-2 px-4 border-b text-center space-x-2">
+          <!-- Editar -->
+          <a href="/farma/editarProducto/<%= producto.id %>"
+             class="inline-flex items-center bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded shadow transition">
+            ✏️ Editar
+          </a>
+
+          <!-- Reabastecer (sin EJS dentro del onclick) -->
+          <button type="button"
+                  data-producto-id="<%= producto.id %>"
+                  onclick="abrirModalReabastecer(this.dataset.productoId)"
+                  class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded shadow transition">
+            📦 Reabastecer
+          </button>
+
+          <!-- Eliminar -->
+          <form action="/farma/eliminarProducto/<%= producto.id %>" method="POST" class="inline">
+            <button type="submit"
+                    class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded shadow transition"
+                    onclick="return confirm('¿Estás seguro de eliminar este producto?')">
+              🗑 Eliminar
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  <% } else { %>
+    <tr>
+      <td colspan="5" class="py-4 px-4 text-center text-gray-500">No hay productos registrados para esta farmacia.</td>
+    </tr>
+  <% } %>
+</tbody>
+
+      </table>
+    </div>
+
+    <% } else { %>
+    <p class="text-center text-gray-500 mt-6">No hay productos registrados para esta farmacia.</p>
+    <% } %>
+  </div>
+
+  <%- include('../partials/footer') %>
+
+
+  <!-- Modal Reabastecer -->
+<div id="modalReabastecer" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md">
+    <h3 class="text-xl font-semibold mb-4">Reabastecer producto</h3>
+    <form id="formReabastecer" method="POST">
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1">Cantidad a agregar</label>
+        <input type="number" name="cantidad" min="1" required
+               class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div class="flex justify-end gap-3">
+        <button type="button" onclick="cerrarModalReabastecer()"
+                class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
+          Cancelar
+        </button>
+        <button type="submit"
+                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function abrirModalReabastecer(productoId) {
+    const modal = document.getElementById('modalReabastecer');
+    const form  = document.getElementById('formReabastecer');
+    form.action = `/farma/reabastecer/${productoId}`;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+  function cerrarModalReabastecer() {
+    const modal = document.getElementById('modalReabastecer');
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+  }
+</script>
+
+
+
+  <script>
+    let productoIdSeleccionado = null;
+
+    function abrirModalReabastecer(id) {
+      productoIdSeleccionado = id;
+      document.getElementById("modalReabastecer").classList.remove("hidden");
+    }
+
+    function cerrarModal() {
+      document.getElementById("modalReabastecer").classList.add("hidden");
+      productoIdSeleccionado = null;
+    }
+
+    async function enviarReabastecer() {
+      const cantidad = document.getElementById("cantidadReabastecer").value;
+      if (!cantidad || cantidad <= 0) {
+        alert("Ingresa una cantidad válida");
+        return;
+      }
+
+      const res = await fetch(`/farma/reabastecerProductoAjax/${productoIdSeleccionado}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          cantidad
+        })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        // Actualizar stock en la tabla
+        const stockBadge = document.querySelector(`#stock-${productoIdSeleccionado}`);
+        stockBadge.textContent = data.nuevoStock;
+        stockBadge.className = "bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm";
+
+        cerrarModal();
+      } else {
+        alert("Error al reabastecer");
+      }
+    }
+  </script>

@@ -1,0 +1,99 @@
+<!-- views/portalInicio.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Órdenes</title>
+  <link href="/css/estilo.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-blue-50 min-h-screen text-gray-800">
+
+  <!-- Navbar -->
+  <header>
+    <%- include('../partials/navbar') %>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+      <h1 class="text-3xl font-bold text-blue-700 mb-4 md:mb-0">📦 Órdenes</h1>
+
+      <!-- Filtro por estado -->
+      <form method="GET" action="/Public/ordenes" class="flex items-center space-x-2">
+        <label for="estado" class="font-medium text-gray-700">Filtrar por estado:</label>
+        <select 
+          name="estado" 
+          id="estado" 
+          onchange="this.form.submit()" 
+          class="px-3 py-2 border rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <option value="">Todos</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="pagado">Pagado</option>
+          <option value="enviado">Enviado</option>
+          <option value="entregado">Entregado</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </form>
+    </div>
+
+    <!-- Tabla de órdenes -->
+    <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+      <table class="w-full text-sm text-left text-gray-700">
+        <thead class="bg-blue-600 text-white text-xs uppercase">
+          <tr>
+            <th class="px-6 py-3">ID</th>
+            <th class="px-6 py-3">Cliente</th>
+            <th class="px-6 py-3">Total</th>
+            <th class="px-6 py-3">Estado</th>
+            <th class="px-6 py-3">Fecha</th>
+            <th class="px-6 py-3 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (ordenes.length > 0) { %>
+            <% ordenes.forEach(o => { %>
+              <tr class="border-b hover:bg-blue-50 transition">
+                <td class="px-6 py-4 font-medium"><%= o.id %></td>
+                <td class="px-6 py-4"><%= o.usuario ? o.usuario?.email : 'N/A' %></td>
+                <td class="px-6 py-4">$<%= o.total %></td>
+                <td class="px-6 py-4">
+                  <span 
+                    class="px-3 py-1 rounded-full text-xs font-semibold 
+                    <%= o.estado === 'pendiente' ? 'bg-yellow-200 text-yellow-800' :
+                        o.estado === 'pagado' ? 'bg-green-200 text-green-800' :
+                        o.estado === 'enviado' ? 'bg-blue-200 text-blue-800' :
+                        o.estado === 'entregado' ? 'bg-purple-200 text-purple-800' :
+                        'bg-red-200 text-red-800' %>">
+                    <%= o.estado %>
+                  </span>
+                </td>
+                <td class="px-6 py-4"><%= o.createdAt.toLocaleDateString() %></td>
+                <td class="px-6 py-4 text-center">
+                  <a 
+                    href="/Public/detalleOrden/<%= o.id %>" 
+                    class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition"
+                  >
+                    Ver
+                  </a>
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="6" class="px-6 py-4 text-center text-gray-500">No hay órdenes registradas</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <%- include('../partials/footer') %>
+  </footer>
+
+</body>
+</html>

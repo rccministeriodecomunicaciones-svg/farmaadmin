@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= nombrePagina %></title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-blue-100 min-h-screen">
+
+  <!-- Navbar -->
+  <%- include('../partials/navbar') %>
+
+  <main class="container mx-auto px-4 mt-10">
+
+    <!-- Título y barra de búsqueda -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+      <h1 class="text-3xl font-bold text-gray-800"><%= nombrePagina %></h1>
+
+      <form action="/farma/productos" method="GET" class="w-full md:w-1/2">
+        <div class="relative">
+          <input
+            type="text"
+            name="q"
+            placeholder="Buscar producto por nombre o farmacia..."
+            value="<%= search || '' %>"
+            class="w-full pl-4 pr-12 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button type="submit" class="absolute right-2 top-1.5 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg">
+            🔍
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tarjetas de productos -->
+    <% if (productos.length === 0) { %>
+      <p class="text-gray-600">No se encontraron productos.</p>
+    <% } else { %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% productos.forEach(p => { %>
+          <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition duration-300 relative">
+
+            <h2 class="text-xl font-semibold text-gray-800 mb-1"><%= p.nombre %></h2>
+            <p class="text-gray-600 mb-2"><%= p.descripcion || 'Sin descripción' %></p>
+
+            <div class="text-sm text-gray-600 mb-2">
+              💰 <strong>Precio:</strong> $<%= p.precio %><br>
+              📦 <strong>Stock:</strong> <%= p.stock %>
+            </div>
+
+            <p class="text-sm text-gray-500 mb-4">
+              🏥 <strong>Farmacia:</strong> <%= p.Farmacium ? p.Farmacium.nombre : 'Sin farmacia' %>
+            </p>
+
+            <!-- Acciones opcionales -->
+            <div class="flex justify-end space-x-2">
+              <a href="/farma/editarProducto/<%= p.id %>" class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-1 rounded text-sm shadow">
+                ✏️ Editar
+              </a>
+              
+              <!-- Botón para abrir el modal -->
+              <button onclick="openModal('<%= p.id %>')" class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 text-sm shadow">
+                🗑️ Eliminar
+              </button>
+
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <!-- Paginación -->
+   <% if (totalPages > 1) { %>
+  <div class="mt-8 flex justify-center space-x-2">
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <a href="/farma/productos?page=<%= i %>&q=<%= search %>"
+         class="px-4 py-2 rounded-lg border text-sm 
+         <%= currentPage === i ? 'bg-blue-600 text-white' : 'bg-white text-blue-600 hover:bg-blue-100' %>">
+        <%= i %>
+      </a>
+    <% } %>
+  </div>
+<% } %>
+
+
+<!-- Modal de confirmación -->
+<div id="deleteModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-xl font-semibold mb-4 text-red-600">¿Eliminar producto?</h2>
+    <p class="mb-6">Esta acción no se puede deshacer. ¿Deseas continuar?</p>
+    
+    <form id="deleteForm" method="POST">
+      <div class="flex justify-end space-x-4">
+        <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+          Cancelar
+        </button>
+        <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+          Eliminar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</main>
+
+<script>
+  function openModal(productId) {
+    const modal = document.getElementById('deleteModal');
+    const form = document.getElementById('deleteForm');
+    form.action = `/farma/eliminarProducto/${productId}`;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('deleteModal');
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+  }
+</script>
+
+</body>
+</html>

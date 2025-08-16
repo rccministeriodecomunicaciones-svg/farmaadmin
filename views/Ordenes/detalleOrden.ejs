@@ -1,0 +1,107 @@
+<!-- views/detalleOrden.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalle de Orden <%= orden.id %></title>
+  <link href="/css/estilo.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-blue-50 min-h-screen text-gray-800">
+
+  <!-- Navbar -->
+  <header>
+    <%- include('../partials/navbar') %>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    <!-- Encabezado -->
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-blue-700">📄 Detalle de la Orden #<%= orden.id %></h1>
+      <a href="/Public/ordenes" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg shadow hover:bg-gray-300 transition">
+        ← Volver
+      </a>
+    </div>
+
+    <!-- Información principal -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Información de la orden</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <p><span class="font-bold">Cliente:</span> <%= orden.usuario ? orden.usuario.username : 'N/A' %></p>
+        <p><span class="font-bold">Correo:</span> <%= orden.usuario ? orden.usuario.email : 'N/A' %></p>
+        <p><span class="font-bold">Estado:</span>
+          <span class="px-3 py-1 rounded-full text-xs font-semibold 
+            <%= orden.estado === 'pendiente' ? 'bg-yellow-200 text-yellow-800' :
+                orden.estado === 'pagado' ? 'bg-green-200 text-green-800' :
+                orden.estado === 'enviado' ? 'bg-blue-200 text-blue-800' :
+                orden.estado === 'entregado' ? 'bg-purple-200 text-purple-800' :
+                'bg-red-200 text-red-800' %>">
+            <%= orden.estado %>
+          </span>          
+        </p>
+        <form action="/Public/cambiarEstado/<%= orden.id %>" method="POST" class="mt-4">
+          <label for="nuevoEstado" class="font-bold">Cambiar estado:</label>
+          <select name="nuevoEstado" id="nuevoEstado" class="border rounded p-2">
+            <option value="pendiente" <%= orden.estado === 'pendiente' ? 'selected' : '' %>>Pendiente</option>
+            <option value="pagado" <%= orden.estado === 'pagado' ? 'selected' : '' %>>Pagado</option>
+            <option value="enviado" <%= orden.estado === 'enviado' ? 'selected' : '' %>>Enviado</option>
+            <option value="entregado" <%= orden.estado === 'entregado' ? 'selected' : '' %>>Entregado</option>
+            <option value="cancelado" <%= orden.estado === 'cancelado' ? 'selected' : '' %>>Cancelado</option>
+          </select>
+          <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition">
+            Actualizar
+          </button>
+        </form>
+
+        <p><span class="font-bold">Fecha:</span> <%= orden.createdAt.toLocaleDateString() %></p>
+        <p><span class="font-bold">Total:</span> $<%= total.toFixed(2) %></p>
+
+      </div>
+    </div>
+
+    <!-- Lista de productos -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">🛒 Productos</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-700">
+          <thead class="bg-blue-600 text-white text-xs uppercase">
+            <tr>
+              <th class="px-6 py-3">Producto</th>
+              <th class="px-6 py-3">Cantidad</th>
+              <th class="px-6 py-3">Precio Unitario</th>
+              <th class="px-6 py-3">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (detalles.length > 0) { %>
+            <% detalles.forEach(d => { %>
+            <tr>
+              <td><%= d.Producto.nombre %></td>
+              <td><%= d.cantidad %></td>
+              <td>$<%= d.Producto.precio.toFixed(2) %></td>
+              <td>$<%= (d.cantidad * d.Producto.precio).toFixed(2) %></td>
+            </tr>
+            <% }) %>
+            <% } else { %>
+            <tr>
+              <td colspan="4">No hay productos en esta orden</td>
+            </tr>
+            <% } %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <%- include('../partials/footer') %>
+  </footer>
+
+</body>
+
+</html>

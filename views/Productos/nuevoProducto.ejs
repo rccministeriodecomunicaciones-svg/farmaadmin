@@ -1,0 +1,56 @@
+<!-- views/portalInicio.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Principal</title>
+    <link href="/css/estilo.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <header>
+    <%- include('../partials/navbar') %>
+</header>
+
+
+<div class="max-w-xl mx-auto p-6 bg-white shadow-md rounded">
+  <h2 class="text-2xl font-bold mb-4">Crear Producto</h2>
+
+  <form action="/farma/productos/crear" method="POST" class="space-y-4">
+    <div>
+      <label for="nombre" class="block font-medium">Nombre del producto:</label>
+      <input type="text" name="nombre" id="nombre" required class="w-full border px-3 py-2 rounded">
+    </div>
+
+    <div>
+      <label for="descripcion" class="block font-medium">Descripción:</label>
+      <textarea name="descripcion" id="descripcion" required class="w-full border px-3 py-2 rounded"></textarea>
+    </div>
+
+    <div>
+      <label for="stock" class="block font-medium">Cantidad:</label>
+      <input type="number" name="stock" id="stock" required class="w-full border px-3 py-2 rounded">
+      
+    </div>
+
+    <div>
+      <label for="farmaciaId">Farmacia:</label>
+      <select name="farmaciaId" id="farmaciaId" required>
+        <% farmacias.forEach(f => { %>
+        <option value="<%= f.id %>"><%= f.nombre %></option>
+        <% }) %>
+      </select>
+    </div>
+    
+    <div>
+      <label for="precio" class="block font-medium">Precio:</label>
+      <input type="number" step="0.01" name="precio" id="precio" required class="w-full border px-3 py-2 rounded">
+    </div>
+
+   
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Guardar Producto</button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>
