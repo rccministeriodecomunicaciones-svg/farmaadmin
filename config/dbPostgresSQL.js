@@ -4,7 +4,7 @@ require('dotenv').config();
 
 
 const sequelize = new Sequelize(
-  process.env.DATABASE, 'postgres', process.env.PASSWORD, 
+  process.env.DATABASE, 'fescobar', process.env.PASSWORD, 
   {
   host: process.env.SERVER, // Nombre servidor
   dialect: 'postgres',
