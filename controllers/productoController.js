@@ -93,7 +93,7 @@ exports.formularioNuevo = async (req, res) => {
     try {
     const { farmaciaId } = req.params;
     const farmacias = await Farmacia.findAll();
-    res.render('productos/nuevoProducto', {
+    res.render('Productos/nuevoProducto', {
     farmaciaId,
     farmacias,
     nombrePagina: 'Nuevo Producto'
