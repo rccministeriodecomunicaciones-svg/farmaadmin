@@ -19,7 +19,6 @@ const PurchaseOrder = sequelize.define('PurchaseOrder', {
   },
 }, {
   tableName: 'purchase_orders',
-  schema: 'farma',
   timestamps: true,
 });
 
