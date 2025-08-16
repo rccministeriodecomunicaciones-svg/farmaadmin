@@ -25,7 +25,6 @@ const Producto  = sequelize.define('Producto', {
   }
 }, {
   tableName: 'productos',
-  schema: 'farma',
   timestamps: false 
 })
 
