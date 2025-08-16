@@ -110,7 +110,7 @@ app.use('/Public', PublicRoute());
 // Ruta raíz
 app.get('/', (req, res) => {
   // Puedes redirigir a tu ruta pública o principal
-  res.redirect('/Public');  
+  res.redirect('/Public/tienda');  
   // o si quieres mostrar algo directo:
   // res.render('index'); 
 });
