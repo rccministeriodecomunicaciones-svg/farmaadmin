@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = 5000;
+const port = process.env.PORT || 3000;
 const session = require('express-session');
 const flash = require('connect-flash');
 const dotenv = require('dotenv');
