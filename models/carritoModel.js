@@ -32,7 +32,6 @@ const Carrito = sequelize.define('Carrito', {
   }
 }, {
   tableName: 'Carritos',
-  schema: 'farma',
   timestamps: true
 });
 
