@@ -29,7 +29,6 @@ const DetalleOrden = sequelize.define('DetalleOrden', {
   }
 }, {
   tableName: 'DetalleOrdenes',
-  schema: 'farma',
   timestamps: true
 });
 
