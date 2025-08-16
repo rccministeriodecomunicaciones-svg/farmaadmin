@@ -27,7 +27,6 @@ const User = sequelize.define('User', {
   }
 }, {
   tableName: 'USERS',
-  schema: 'farma',
   timestamps: true, // Desactiva los timestamps si no los estás usando
   hooks: {
     beforeCreate: async (user) => {
