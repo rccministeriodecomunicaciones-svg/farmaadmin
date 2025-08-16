@@ -21,7 +21,6 @@ const Supplier = sequelize.define('Supplier', {
   },
 }, {
   tableName: 'suppliers',
-  schema: 'farma',
   timestamps: true,
 });
 
