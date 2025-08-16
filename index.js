@@ -107,5 +107,12 @@ app.use((req, res, next) => {
 app.use('/farma', RouterPrincipal());
 app.use('/Public', PublicRoute());
 
+// Ruta raíz
+app.get('/', (req, res) => {
+  // Puedes redirigir a tu ruta pública o principal
+  res.redirect('/Public');  
+  // o si quieres mostrar algo directo:
+  // res.render('index'); 
+});
 
 app.listen(port, () => console.log(`Servidor corriendo en puerto ${port}`));
