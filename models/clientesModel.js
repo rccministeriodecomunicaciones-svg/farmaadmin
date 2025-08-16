@@ -21,7 +21,6 @@ const Customer = sequelize.define('Customer', {
   },
 }, {
   tableName: 'customers',
-  schema: 'farma',
   timestamps: true,
 });
 
