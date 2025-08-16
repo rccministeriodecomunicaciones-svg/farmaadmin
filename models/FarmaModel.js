@@ -13,7 +13,6 @@ const Farmacia = sequelize.define('Farmacia', {
 
 },{
     tableName: 'farmacias',
-    schema: 'farma',
     timestamps: true
 });
 
