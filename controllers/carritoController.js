@@ -72,8 +72,8 @@ exports.verCarrito = async (req, res) => {
     // 2️⃣ Consulta SQL directa para el total
     const [resultado] = await sequelize.query(`
       SELECT COALESCE(SUM(c.cantidad * p.precio), 0) AS total_general
-      FROM farma."Carritos" c
-      JOIN farma."productos" p 
+      FROM postgres."Carritos" c
+      JOIN postres."productos" p 
         ON c."productoId" = p.id
       WHERE c."usuarioId" = ${usuario}
         AND c.estado = 'pendiente'
